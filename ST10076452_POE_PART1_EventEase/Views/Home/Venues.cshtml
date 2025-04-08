@@ -1,0 +1,183 @@
+﻿@model ST10076452_POE_PART1_EventEase.Models.VenueModel
+
+@{
+    ViewData["Title"] = "Venue Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <style>
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            color: azure;
+            text-shadow: 2px 2px 5px black;
+            border: solid;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+
+            .image-grid label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .image-grid img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 10px;
+                transition: transform 0.3s ease;
+                border: 3px solid transparent;
+            }
+
+            .image-grid input[type="radio"] {
+                display: none;
+            }
+
+                .image-grid input[type="radio"]:checked + img {
+                    border: 3px solid #DFC57B;
+                    transform: scale(1.1);
+                }
+
+        form {
+            margin-top: 30px;
+            border: 2px solid #DFC57B;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+            form div {
+                margin-bottom: 15px;
+            }
+
+            form label {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            form input {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border: 2px solid #ddd;
+                border-radius: 5px;
+                box-sizing: border-box;
+                background-color: #f9f9f9;
+            }
+
+                form input:focus {
+                    border-color: #DFC57B;
+                    outline: none;
+                }
+
+        button {
+            background-color: #DFC57B;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+            button:hover {
+                background-color: #b89f5d;
+            }
+
+        body {
+            background-image: url('https://assets.venuecrew.com/wp-content/uploads/2022/03/16030741/Picking-a-wedding-venue-style-The-Bower-Estate-Gold-Coast-Marquee-Wedding-Venue.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+    </style>
+
+    <div class="image-grid">
+        <label>
+            <input type="radio" name="ImageUrl" value="https://via.placeholder.com/200" />
+            <img src="https://via.placeholder.com/200" alt="Image 1" />
+        </label>
+        <label>
+            <input type="radio" name="ImageUrl" value="https://via.placeholder.com/200" />
+            <img src="https://via.placeholder.com/200" alt="Image 2" />
+        </label>
+        <label>
+            <input type="radio" name="ImageUrl" value="https://via.placeholder.com/200" />
+            <img src="https://via.placeholder.com/200" alt="Image 3" />
+        </label>
+        <label>
+            <input type="radio" name="ImageUrl" value="https://via.placeholder.com/200" />
+            <img src="https://via.placeholder.com/200" alt="Image 4" />
+        </label>
+    </div>
+    <span id="imageError" style="color: red; display: none;">Please select an image.</span>
+
+    <form asp-controller="Home" asp-action="Venues" method="post" onsubmit="return validateForm()">
+        <div>
+            <label>Venue Name:</label>
+            <input type="text" asp-for="VenueName" required />
+        </div>
+
+        <div>
+            <label>Venue Location:</label>
+            <input type="text" asp-for="Location" required />
+        </div>
+
+        <div>
+            <label>Capacity:</label>
+            <input type="text" asp-for="Capacity" required />
+        </div>
+
+        <!-- Hidden input to store the selected image URL -->
+        <input type="hidden" id="ImageUrl" name="ImageUrl" />
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        var images = document.getElementsByName("ImageUrl");
+        var selected = false;
+
+        // Check for selected radio button
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].checked) {
+                selected = true;
+                break;
+            }
+        }
+
+        if (!selected) {
+            document.getElementById("imageError").style.display = "block";
+            return false;
+        } else {
+            // If a selection is made, set the hidden input value to the selected image value
+            var selectedImage = document.querySelector('input[name="ImageUrl"]:checked').value;
+            document.getElementById("ImageUrl").value = selectedImage;
+        }
+
+        return true;
+    }
+</script>

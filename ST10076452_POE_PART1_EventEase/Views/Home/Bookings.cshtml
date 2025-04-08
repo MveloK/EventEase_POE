@@ -1,0 +1,97 @@
+﻿@model IEnumerable<BookingsModel>
+
+@{
+    ViewData["Title"] = "Bookings Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            color: azure;
+            text-shadow: 2px 2px 5px black;
+            border: solid;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        body {
+            background-image: url('https://assets.venuecrew.com/wp-content/uploads/2024/08/26230728/barbican-conservatory.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .table-container {
+            margin: 30px auto;
+            border: 2px solid #BCECAC;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            width: 80%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #BCECAC;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">Bookings</h1>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Event ID</th>
+                    <th>Venue ID</th>
+                    <th>Booking Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var booking in Model)
+                    {
+                        <tr>
+                            <td>@booking.BookingID</td>
+                            <td>@booking.EventId</td>
+                            <td>@booking.VenueId</td>
+                            <td>@booking.BookingDate.ToString("yyyy-MM-dd")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" style="text-align: center;">No bookings available.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
