@@ -1,33 +1,30 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ST10076452_POE_PART1_EventEase.Models
 {
     public class VenueModel
     {
+        [Key]
+        public int VenueId { get; set; }
 
+        [Required]
+        [StringLength(150)]
+        public string VenueName { get; set; }
 
+        [Required]
+        [StringLength(250)]
+        public string Location { get; set; }
 
-            [Key] // Primary Key
-            public int VenueId { get; set; }
+        [Required]
+        public int Capacity { get; set; }
 
-            [Required]
-            [StringLength(150)]
-            public string VenueName { get; set; }
+        [Required]
+        [StringLength(500)]
+        public string ImageUrl { get; set; }
 
-            [Required]
-            [StringLength(250)]
-            public string Location { get; set; }
-
-            [Range(1, 100000, ErrorMessage = "Capacity must be at least 1.")]
-            public int Capacity { get; set; }
-
-            [Url]
-            [StringLength(500)]
-            public string ImageUrl { get; set; }
-
-
+        // Navigation properties
+        public virtual ICollection<EventsModel> Events { get; set; }
+        public virtual ICollection<BookingsModel> Bookings { get; set; }
     }
-    }
-
-
+}

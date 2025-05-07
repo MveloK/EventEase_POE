@@ -19,7 +19,7 @@ namespace ST10076452_POE_PART1_EventEase.Models
 
             [Required]
             [StringLength(15)]
-            public string EmpPassword { get; set; } // Stored securely (hashed)
+            public string EmpPassword { get; set; } 
         }
     }
 

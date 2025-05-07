@@ -12,8 +12,8 @@ using ST10076452_POE_PART1_EventEase.Data;
 namespace ST10076452_POE_PART1_EventEase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250407160356_UpdateBookingsRelationships")]
-    partial class UpdateBookingsRelationships
+    [Migration("20250506200223_FixedCascadeIssue")]
+    partial class FixedCascadeIssue
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,13 +28,7 @@ namespace ST10076452_POE_PART1_EventEase.Migrations
             modelBuilder.Entity("ST10076452_POE_PART1_EventEase.Models.BookingsModel", b =>
                 {
                     b.Property<int>("BookingID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"));
-
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -42,7 +36,10 @@ namespace ST10076452_POE_PART1_EventEase.Migrations
                     b.Property<int>("VenueId")
                         .HasColumnType("int");
 
-                    b.HasKey("BookingID");
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BookingID", "EventId", "VenueId");
 
                     b.HasIndex("EventId");
 
@@ -76,6 +73,8 @@ namespace ST10076452_POE_PART1_EventEase.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("EventId");
+
+                    b.HasIndex("VenueId");
 
                     b.ToTable("Events");
                 });
@@ -113,21 +112,44 @@ namespace ST10076452_POE_PART1_EventEase.Migrations
 
             modelBuilder.Entity("ST10076452_POE_PART1_EventEase.Models.BookingsModel", b =>
                 {
-                    b.HasOne("ST10076452_POE_PART1_EventEase.Models.EventsModel", "Events")
-                        .WithMany()
+                    b.HasOne("ST10076452_POE_PART1_EventEase.Models.EventsModel", "Event")
+                        .WithMany("Bookings")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ST10076452_POE_PART1_EventEase.Models.VenueModel", "Venues")
-                        .WithMany()
+                    b.HasOne("ST10076452_POE_PART1_EventEase.Models.VenueModel", "Venue")
+                        .WithMany("Bookings")
+                        .HasForeignKey("VenueId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("ST10076452_POE_PART1_EventEase.Models.EventsModel", b =>
+                {
+                    b.HasOne("ST10076452_POE_PART1_EventEase.Models.VenueModel", "Venue")
+                        .WithMany("Events")
                         .HasForeignKey("VenueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Events");
+                    b.Navigation("Venue");
+                });
 
-                    b.Navigation("Venues");
+            modelBuilder.Entity("ST10076452_POE_PART1_EventEase.Models.EventsModel", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("ST10076452_POE_PART1_EventEase.Models.VenueModel", b =>
+                {
+                    b.Navigation("Bookings");
+
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ST10076452_POE_PART1_EventEase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+87bd5a82a197467bf5ac79365b8b9cec5ad21d86")]
 [assembly: System.Reflection.AssemblyProductAttribute("ST10076452_POE_PART1_EventEase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ST10076452_POE_PART1_EventEase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

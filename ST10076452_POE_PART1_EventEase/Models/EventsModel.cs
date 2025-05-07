@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ST10076452_POE_PART1_EventEase.Models
 {
     public class EventsModel
     {
-        [Key] // Primary Key
+        [Key]
         public int EventId { get; set; }
 
         [Required]
@@ -15,10 +17,16 @@ namespace ST10076452_POE_PART1_EventEase.Models
         [Required]
         public DateTime EventDate { get; set; }
 
+        [Required]
         [StringLength(500)]
         public string Description { get; set; }
 
         [Required]
-        public int VenueId { get; set; } // Foreign Key linking to Venue
+        public int VenueId { get; set; }
+
+        [ForeignKey("VenueId")]
+        public virtual VenueModel Venue { get; set; }
+
+        public virtual ICollection<BookingsModel> Bookings { get; set; }
     }
 }

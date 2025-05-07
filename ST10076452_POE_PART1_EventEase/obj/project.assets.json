@@ -4740,11 +4740,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase.csproj",
       "projectName": "ST10076452_POE_PART1_EventEase",
-      "projectPath": "C:\\Users\\User\\source\\repos\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase.csproj",
+      "projectPath": "C:\\Users\\User\\source\\repos\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\obj\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\ST10076452_POE_PART1_EventEase\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
