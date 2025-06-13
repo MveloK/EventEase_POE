@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "secrets1": {
+      "type": "secrets.user"
+    },
+    "mssql1": {
+      "secretStore": "LocalSecretsFile",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/eventease-st10076452/databases/ST10076452_CLVD7111_POE",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AzureSqlConnection1",
+      "dynamicId": null
+    }
+  }
+}

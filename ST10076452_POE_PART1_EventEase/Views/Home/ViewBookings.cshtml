@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ST10076452_POE_PART1_EventEase.Models.BookingDetailsViewModel>
+
+<form method="get" class="w-full max-w-md mx-auto flex flex-col items-center space-y-4">
+    <!-- Search Bar Centered -->
+    <input type="text"
+           name="searchTerm"
+           placeholder="Search by Booking ID or Event ID"
+           class="w-full p-2 border border-gray-300 rounded-md text-lg" />
+
+    <!-- Filters Below -->
+    <div class="w-full flex flex-col space-y-2">
+        <select name="eventTypeId" class="p-2 border border-gray-300 rounded-md">
+            <option value="">All Event Types</option>
+            @foreach (var type in ViewBag.EventTypes)
+            {
+                <option value="@type.EventTypeId">@type.Name</option>
+            }
+        </select>
+
+        <input type="date" name="startDate" class="p-2 border border-gray-300 rounded-md" />
+        <input type="date" name="endDate" class="p-2 border border-gray-300 rounded-md" />
+
+        <label class="flex items-center space-x-2">
+            <input type="checkbox" name="availableOnly" value="true" class="accent-blue-600" />
+            <span>Available Only</span>
+        </label>
+
+        <button type="submit" class="p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+            Filter
+        </button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Event</th>
+            <th>Event Description</th>
+            <th>Venue</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.BookingID</td>
+                <td>@booking.EventName</td>
+                <td>@booking.Description</td>
+                <td>@booking.VenueName</td>
+                <td>@booking.Location</td>
+                <td>@booking.Capacity</td>
+                <td>@booking.BookingDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

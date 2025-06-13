@@ -1,0 +1,170 @@
+﻿@model ST10076452_POE_PART1_EventEase.Models.VenueModel
+
+@{
+    ViewData["Title"] = "Venue Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+    <style>
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            color: azure;
+            text-shadow: 2px 2px 5px black;
+            border: solid;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+            .image-grid label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .image-grid img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 10px;
+                transition: transform 0.3s ease;
+                border: 3px solid transparent;
+            }
+
+            .image-grid input[type="radio"] {
+                display: none;
+            }
+
+                .image-grid input[type="radio"]:checked + img {
+                    border: 3px solid #DFC57B;
+                    transform: scale(1.1);
+                }
+
+        form {
+            margin-top: 10px;
+            border: 2px solid #DFC57B;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+            form div {
+                margin-bottom: 15px;
+            }
+
+            form label {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            form input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 16px;
+                border: 2px solid #ddd;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+
+            form input:focus {
+                border-color: #DFC57B;
+                outline: none;
+            }
+
+        button {
+            background-color: #DFC57B;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            button:hover {
+                background-color: #b89f5d;
+            }
+
+        body {
+            background-image: url('https://assets.venuecrew.com/wp-content/uploads/2022/03/16030741/Picking-a-wedding-venue-style-The-Bower-Estate-Gold-Coast-Marquee-Wedding-Venue.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+    </style>
+
+    <!-- Image Selection Grid -->
+    <div class="image-grid">
+        @for (int i = 1; i <= 4; i++)
+        {
+            var url = $"https://eventease5.blob.core.windows.net/venue-images/img{i}.jpg";
+            var id = $"image{i}";
+            <label for="@id">
+                <input type="radio" id="@id" name="ImageSelect" value="@url" />
+                <img src="@url" alt="Image @i" />
+            </label>
+        }
+    </div>
+    <span id="imageError" style="color: red; display: none;">Please select an image.</span>
+
+    <!-- Venue Form -->
+    <form asp-controller="Home" asp-action="Venues" method="post" onsubmit="return validateForm()">
+        <div>
+            <label asp-for="VenueName">Venue Name:</label>
+            <input asp-for="VenueName" type="text" required />
+        </div>
+
+        <div>
+            <label asp-for="Location">Venue Location:</label>
+            <input asp-for="Location" type="text" required />
+        </div>
+
+        <div>
+            <label asp-for="Capacity">Capacity:</label>
+            <input asp-for="Capacity" type="text" required />
+        </div>
+
+        <!-- Hidden input to carry selected image -->
+        <input asp-for="ImageUrl" type="hidden" id="ImageUrl" />
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    function validateForm() {
+        const radios = document.getElementsByName("ImageSelect");
+        let selected = false;
+
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                document.getElementById("ImageUrl").value = radios[i].value;
+                selected = true;
+                break;
+            }
+        }
+
+        document.getElementById("imageError").style.display = selected ? "none" : "block";
+        return selected;
+    }
+</script>
